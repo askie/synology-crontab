@@ -49,7 +49,7 @@ check_new () {
     IFS="
 "
     cat /etc/crontab | \
-    while read LINE; do
+    while read -r LINE; do
       # Find out if empty or the first character is a #
       echo "${LINE}" | awk '{print $1}' | egrep "^#|^$" >/dev/null 2>&1
       if [[ $? = 0 ]]; then
@@ -58,7 +58,7 @@ check_new () {
       else
         unset IFS
         # test convert using tabs to compare results
-        echo "$LINE" | while read MIN HO MD MO WD WH COM; do
+        echo "$LINE" | while read -r MIN HO MD MO WD WH COM; do
           echo -e "$MIN\t$HO\t$MD\t$MO\t$WD\troot\t$COM"
         done
         IFS="
